@@ -1,0 +1,7 @@
+<template>
+  <div><h1 class="text-3xl font-black">Équipe</h1><p class="mt-1 text-sm text-slate-500">Comptes et permissions mockés.</p><div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"><div v-for="user in users" :key="user.id" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex items-center gap-3"><div class="flex h-11 w-11 items-center justify-center rounded-full bg-violet-100 font-bold text-violet-700">{{ user.name.split(" ").map((x) => x[0]).join("") }}</div><div><strong>{{ user.name }}</strong><p class="text-sm text-slate-500">{{ roleLabels[user.role] }}</p></div></div><div class="mt-5 flex flex-wrap gap-1.5"><span v-for="permission in user.permissions.slice(0, 5)" :key="permission" class="rounded-full bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-500">{{ permission }}</span><span v-if="user.permissions.length > 5" class="rounded-full bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-500">+{{ user.permissions.length - 5 }}</span></div></div></div></div>
+</template>
+<script setup lang="ts">
+import { users, roleLabels } from "~/data/users";
+definePageMeta({ layout: "admin", middleware: ["auth"], permission: "team.manage" });
+</script>

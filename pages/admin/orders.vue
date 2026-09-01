@@ -1,0 +1,10 @@
+<template>
+  <div><h1 class="text-3xl font-black">Commandes</h1><p class="mt-1 text-sm text-slate-500">Préparation et suivi des retraits.</p><div class="mt-6 grid gap-4"><div v-for="order in orders" :key="order.id" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><div class="flex flex-wrap items-center justify-between gap-3"><div><strong>{{ order.id }}</strong><p class="mt-1 text-sm text-slate-500">{{ order.customerName }} · {{ order.phone }}</p></div><OrderStatusBadge :status="order.status" /></div><div class="mt-4 grid gap-4 md:grid-cols-[1fr_auto]"><div class="rounded-xl bg-slate-50 p-4"><p class="text-xs uppercase tracking-widest text-slate-400">Retrait</p><strong class="mt-1 block">{{ order.pickupSlot }}</strong><p class="mt-3 text-xs uppercase tracking-widest text-slate-400">Code</p><strong class="mt-1 block text-xl tracking-widest text-violet-600">{{ order.pickupCode }}</strong></div><div class="flex items-end gap-2"><button class="rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-bold text-white" @click="advance(order)"> {{ actionLabel(order.status) }} </button></div></div></div></div></div>
+</template>
+<script setup lang="ts">
+import { orders } from "~/data/orders";
+import type { Order, OrderStatus } from "~/types";
+definePageMeta({ layout: "admin", middleware: ["auth"], permission: "orders.read" });
+const actionLabel = (status: OrderStatus) => ({ pending: "Commencer", preparing: "Marquer prête", ready: "Remettre au client", completed: "Terminée", cancelled: "Annulée" }[status]);
+const advance = (order: Order) => { const next: Partial<Record<OrderStatus, OrderStatus>> = { pending: "preparing", preparing: "ready", ready: "completed" }; if (next[order.status]) order.status = next[order.status]!; };
+</script>

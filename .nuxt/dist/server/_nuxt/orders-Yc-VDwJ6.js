@@ -1,0 +1,9 @@
+const orders = [
+  { id: "NOX-1042", customerId: "c1", customerName: "Jean Dupont", phone: "06 12 34 56 78", pickupCode: "7394", pickupSlot: "Aujourd'hui · 22:15–22:30", status: "ready", items: [{ productId: "p1", quantity: 2 }, { productId: "p4", quantity: 1 }], createdAt: "2026-08-25T21:58:00" },
+  { id: "NOX-1041", customerId: "c2", customerName: "Sophie Martin", phone: "06 98 76 54 32", pickupCode: "1842", pickupSlot: "Aujourd'hui · 22:30–22:45", status: "preparing", items: [{ productId: "p2", quantity: 2 }, { productId: "p6", quantity: 1 }], createdAt: "2026-08-25T21:50:00" },
+  { id: "NOX-1040", customerName: "Client invité", phone: "07 00 00 00 00", pickupCode: "5519", pickupSlot: "Aujourd'hui · 23:00–23:15", status: "pending", items: [{ productId: "p3", quantity: 4 }], createdAt: "2026-08-25T21:42:00" }
+];
+export {
+  orders as o
+};
+//# sourceMappingURL=orders-Yc-VDwJ6.js.map

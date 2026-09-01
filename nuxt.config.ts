@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
   app: {
-    baseURL: '/nox-shop/',
+    baseURL: '/NoxShop/',
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "layout", mode: "out-in" },
   },

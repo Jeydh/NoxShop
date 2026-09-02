@@ -1430,8 +1430,8 @@ const plugins = [
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import("./_nuxt/admin-C-OspPOU.js").then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import("./_nuxt/default-ohWUb2zL.js").then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import("./_nuxt/admin-BE-O2Y-B.js").then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import("./_nuxt/default-DcKgNCou.js").then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

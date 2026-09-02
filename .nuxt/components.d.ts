@@ -15,6 +15,7 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 
 
 export const CategoryFilter: typeof import("../components/CategoryFilter.vue")['default']
+export const MobileMenu: typeof import("../components/MobileMenu.vue")['default']
 export const OrderStatusBadge: typeof import("../components/OrderStatusBadge.vue")['default']
 export const ProductCard: typeof import("../components/ProductCard.vue")['default']
 export const StatCard: typeof import("../components/StatCard.vue")['default']
@@ -43,6 +44,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const LazyCategoryFilter: LazyComponent<typeof import("../components/CategoryFilter.vue")['default']>
+export const LazyMobileMenu: LazyComponent<typeof import("../components/MobileMenu.vue")['default']>
 export const LazyOrderStatusBadge: LazyComponent<typeof import("../components/OrderStatusBadge.vue")['default']>
 export const LazyProductCard: LazyComponent<typeof import("../components/ProductCard.vue")['default']>
 export const LazyStatCard: LazyComponent<typeof import("../components/StatCard.vue")['default']>

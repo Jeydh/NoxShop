@@ -681,8 +681,8 @@ function _expandFromEnv(value) {
 
 const _inlineRuntimeConfig = {
   "app": {
-    "baseURL": "/nox-shop/",
-    "buildId": "d4743431-52a2-4e41-99c5-4c51c5554c71",
+    "baseURL": "/NoxShop/",
+    "buildId": "bb82bd16-b168-4863-8517-a3ded38dc4d3",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -984,7 +984,7 @@ function defaultHandler(error, event, opts) {
   const statusMessage = error.statusMessage || "Server Error";
   const url = getRequestURL(event, { xForwardedHost: true, xForwardedProto: true });
   if (statusCode === 404) {
-    const baseURL = "/nox-shop/";
+    const baseURL = "/NoxShop/";
     if (/^\/[^/]/.test(baseURL) && !url.pathname.startsWith(baseURL)) {
       const redirectTo = `${baseURL}${url.pathname.slice(1)}${url.search}`;
       return {

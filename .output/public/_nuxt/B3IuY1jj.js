@@ -1,1 +1,0 @@
-import{N as r,A as i}from"./B-pzCTX3.js";import{u as a}from"./DcGed6Td.js";import"./Df7ZjDQG.js";const u=r(t=>{const o=a(),e=t.meta.permission;if(e&&!o.can(e))return i("/admin")});export{u as default};

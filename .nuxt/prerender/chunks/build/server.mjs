@@ -1446,8 +1446,8 @@ const plugins = [
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-C-OspPOU.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-ohWUb2zL.mjs').then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import('./admin-BE-O2Y-B.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-DcKgNCou.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

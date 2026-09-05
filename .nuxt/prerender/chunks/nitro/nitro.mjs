@@ -683,7 +683,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/NoxShop/",
-    "buildId": "e66f0db1-c185-476d-8560-aee81dabcc2f",
+    "buildId": "6eccea23-dd2a-4704-9d2d-9a96e770f2b0",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },

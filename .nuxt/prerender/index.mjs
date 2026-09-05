@@ -1,10 +1,10 @@
-import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};export { c as closePrerenderer, l as localFetch } from './chunks/nitro/nitro.mjs';
+import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};export { f as closePrerenderer, l as localFetch } from './chunks/nitro/nitro.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/h3/dist/index.mjs';
+import 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/destr/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/hookable/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/ofetch/dist/node.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/node-mock-http/dist/index.mjs';
-import 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/unstorage/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/unstorage/drivers/fs.mjs';
 import 'node:crypto';
@@ -21,4 +21,5 @@ import 'file:///home/jeydh/projects/nox-shop/node_modules/radix3/dist/index.mjs'
 import 'node:fs';
 import 'node:url';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/pathe/dist/index.mjs';
+import 'file:///home/jeydh/projects/nox-shop/node_modules/ipx/dist/index.mjs';
 //# sourceMappingURL=index.mjs.map

@@ -1,9 +1,9 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus } from 'file:///home/jeydh/projects/nox-shop/node_modules/h3/dist/index.mjs';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, getResponseStatus, lazyEventHandler, fromNodeMiddleware, createApp, createRouter as createRouter$1, toNodeListener } from 'file:///home/jeydh/projects/nox-shop/node_modules/h3/dist/index.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import destr from 'file:///home/jeydh/projects/nox-shop/node_modules/destr/dist/index.mjs';
 import { createHooks } from 'file:///home/jeydh/projects/nox-shop/node_modules/hookable/dist/index.mjs';
 import { createFetch, Headers as Headers$1 } from 'file:///home/jeydh/projects/nox-shop/node_modules/ofetch/dist/node.mjs';
 import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///home/jeydh/projects/nox-shop/node_modules/node-mock-http/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, decodePath, withLeadingSlash, withoutTrailingSlash } from 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import { createStorage, prefixStorage } from 'file:///home/jeydh/projects/nox-shop/node_modules/unstorage/dist/index.mjs';
 import unstorage_47drivers_47fs from 'file:///home/jeydh/projects/nox-shop/node_modules/unstorage/drivers/fs.mjs';
 import crypto from 'node:crypto';
@@ -19,7 +19,8 @@ import { getContext } from 'file:///home/jeydh/projects/nox-shop/node_modules/un
 import { toRouteMatcher, createRouter } from 'file:///home/jeydh/projects/nox-shop/node_modules/radix3/dist/index.mjs';
 import { promises } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname as dirname$1, resolve as resolve$1 } from 'file:///home/jeydh/projects/nox-shop/node_modules/pathe/dist/index.mjs';
+import { dirname as dirname$1, resolve as resolve$1, isAbsolute } from 'file:///home/jeydh/projects/nox-shop/node_modules/pathe/dist/index.mjs';
+import { ipxFSStorage, ipxHttpStorage, createIPX, createIPXNodeHandler, parseIPXURL } from 'file:///home/jeydh/projects/nox-shop/node_modules/ipx/dist/index.mjs';
 
 const serverAssets = [{"baseName":"server","dir":"/home/jeydh/projects/nox-shop/server/assets"}];
 
@@ -682,7 +683,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/NoxShop/",
-    "buildId": "bb82bd16-b168-4863-8517-a3ded38dc4d3",
+    "buildId": "e66f0db1-c185-476d-8560-aee81dabcc2f",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -717,6 +718,18 @@ const _inlineRuntimeConfig = {
   },
   "public": {
     "appName": "Nox"
+  },
+  "ipx": {
+    "baseURL": "/_ipx",
+    "alias": {},
+    "fs": {
+      "dir": [
+        "/home/jeydh/projects/nox-shop/public"
+      ]
+    },
+    "http": {
+      "domains": []
+    }
   }
 };
 const envOptions = {
@@ -1143,11 +1156,97 @@ const _p0_ccp = eventHandler((event) => {
 
 const _SxA8c9 = defineEventHandler(() => {});
 
+function defineRenderHandler(render) {
+  const runtimeConfig = useRuntimeConfig();
+  return eventHandler(async (event) => {
+    const nitroApp = useNitroApp();
+    const ctx = { event, render, response: void 0 };
+    await nitroApp.hooks.callHook("render:before", ctx);
+    if (!ctx.response) {
+      if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
+        setResponseHeader(event, "Content-Type", "image/x-icon");
+        return send(
+          event,
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        );
+      }
+      ctx.response = await ctx.render(event);
+      if (!ctx.response) {
+        const _currentStatus = getResponseStatus(event);
+        setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
+        return send(
+          event,
+          "No response returned from render handler: " + event.path
+        );
+      }
+    }
+    await nitroApp.hooks.callHook("render:response", ctx.response, ctx);
+    if (ctx.response.headers) {
+      setResponseHeaders(event, ctx.response.headers);
+    }
+    if (ctx.response.statusCode || ctx.response.statusMessage) {
+      setResponseStatus(
+        event,
+        ctx.response.statusCode,
+        ctx.response.statusMessage
+      );
+    }
+    return ctx.response.body;
+  });
+}
+
+function baseURL() {
+	
+	return useRuntimeConfig().app.baseURL;
+}
+function buildAssetsDir() {
+	
+	return useRuntimeConfig().app.buildAssetsDir;
+}
+function buildAssetsURL(...path) {
+	return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
+}
+function publicAssetsURL(...path) {
+	
+	const app = useRuntimeConfig().app;
+	const publicBase = app.cdnURL || app.baseURL;
+	return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
+}
+
+const _S1Gqtk = lazyEventHandler(() => {
+  const opts = useRuntimeConfig().ipx || {};
+  const fsDir = opts?.fs?.dir ? (Array.isArray(opts.fs.dir) ? opts.fs.dir : [opts.fs.dir]).map((dir) => isAbsolute(dir) ? dir : fileURLToPath(new URL(dir, globalThis._importMeta_.url))) : void 0;
+  const fsStorage = opts.fs?.dir ? ipxFSStorage({ ...opts.fs, dir: fsDir }) : void 0;
+  const httpStorage = opts.http?.domains ? ipxHttpStorage({ ...opts.http }) : void 0;
+  if (!fsStorage && !httpStorage) {
+    throw new Error("IPX storage is not configured!");
+  }
+  const ipxOptions = {
+    ...opts,
+    storage: fsStorage || httpStorage,
+    httpStorage
+  };
+  const baseURL = (opts.baseURL || "/_ipx").replace(/\/+$/, "");
+  const ipx = createIPX(ipxOptions);
+  const nodeHandler = createIPXNodeHandler(ipx, {
+    parseURL(url) {
+      const parsedURL = new URL(url);
+      let pathname = parsedURL.pathname;
+      if (baseURL && (pathname === baseURL || pathname.startsWith(`${baseURL}/`))) {
+        pathname = pathname.slice(baseURL.length) || "/";
+      }
+      return parseIPXURL(parsedURL.origin + pathname + parsedURL.search);
+    }
+  });
+  return fromNodeMiddleware(nodeHandler);
+});
+
 const _lazy_V45Vc0 = () => import('../_/renderer.mjs').then(function (n) { return n.r; });
 
 const handlers = [
   { route: '', handler: _p0_ccp, lazy: false, middleware: true, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
+  { route: '/_ipx/**', handler: _S1Gqtk, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_V45Vc0, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -1292,49 +1391,10 @@ function useNitroApp() {
 }
 runNitroPlugins(nitroApp$1);
 
-function defineRenderHandler(render) {
-  const runtimeConfig = useRuntimeConfig();
-  return eventHandler(async (event) => {
-    const nitroApp = useNitroApp();
-    const ctx = { event, render, response: void 0 };
-    await nitroApp.hooks.callHook("render:before", ctx);
-    if (!ctx.response) {
-      if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
-        setResponseHeader(event, "Content-Type", "image/x-icon");
-        return send(
-          event,
-          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        );
-      }
-      ctx.response = await ctx.render(event);
-      if (!ctx.response) {
-        const _currentStatus = getResponseStatus(event);
-        setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
-        return send(
-          event,
-          "No response returned from render handler: " + event.path
-        );
-      }
-    }
-    await nitroApp.hooks.callHook("render:response", ctx.response, ctx);
-    if (ctx.response.headers) {
-      setResponseHeaders(event, ctx.response.headers);
-    }
-    if (ctx.response.statusCode || ctx.response.statusMessage) {
-      setResponseStatus(
-        event,
-        ctx.response.statusCode,
-        ctx.response.statusMessage
-      );
-    }
-    return ctx.response.body;
-  });
-}
-
 const nitroApp = useNitroApp();
 const localFetch = nitroApp.localFetch;
 const closePrerenderer = () => nitroApp.hooks.callHook("close");
 trapUnhandledNodeErrors();
 
-export { useStorage as a, useNitroApp as b, closePrerenderer as c, defineRenderHandler as d, getRouteRules as g, localFetch as l, useRuntimeConfig as u };
+export { useStorage as a, buildAssetsURL as b, useNitroApp as c, defineRenderHandler as d, baseURL as e, closePrerenderer as f, getRouteRules as g, localFetch as l, publicAssetsURL as p, useRuntimeConfig as u };
 //# sourceMappingURL=nitro.mjs.map

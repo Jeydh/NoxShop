@@ -1,4 +1,4 @@
-import { shallowReactive, reactive, effectScope, getCurrentScope, hasInjectionContext, getCurrentInstance, inject, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw, defineComponent, createElementBlock, provide, cloneVNode, h, resolveComponent, computed, unref, defineAsyncComponent, Suspense, nextTick, mergeProps, ref, isVNode, createCommentVNode, Fragment, withCtx, createTextVNode, useSSRContext, createVNode, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, createApp } from "vue";
+import { shallowReactive, reactive, effectScope, getCurrentScope, hasInjectionContext, getCurrentInstance, inject, toRef, shallowRef, isReadonly, isRef, isShallow, isReactive, toRaw, defineComponent, createElementBlock, provide, cloneVNode, h, resolveComponent, computed, unref, ref, defineAsyncComponent, Suspense, nextTick, mergeProps, isVNode, createCommentVNode, Fragment, withCtx, createTextVNode, useSSRContext, createVNode, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, createApp } from "vue";
 import { $fetch } from "/home/jeydh/projects/nox-shop/node_modules/ofetch/dist/node.mjs";
 import { baseURL } from "#internal/nuxt/paths";
 import { createHooks } from "/home/jeydh/projects/nox-shop/node_modules/hookable/dist/index.mjs";
@@ -10,6 +10,7 @@ import { START_LOCATION, createMemoryHistory, createRouter, useRoute as useRoute
 import { hasProtocol, joinURL, parseURL, encodePath, decodePath, withQuery, isScriptProtocol, parseQuery, withTrailingSlash, withoutTrailingSlash } from "/home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs";
 import "/home/jeydh/projects/nox-shop/node_modules/klona/dist/index.mjs";
 import { ssrRenderAttrs, ssrInterpolate, ssrRenderList, ssrRenderAttr, ssrIncludeBooleanAttr, ssrRenderComponent, ssrRenderClass, ssrRenderSuspense, ssrRenderVNode } from "vue/server-renderer";
+import { useHead as useHead$1, useSeoMeta as useSeoMeta$1, headSymbol } from "/home/jeydh/projects/nox-shop/node_modules/@unhead/vue/dist/index.mjs";
 if (!globalThis.$fetch) {
   globalThis.$fetch = $fetch.create({
     baseURL: baseURL()
@@ -403,6 +404,26 @@ const createError = (error) => {
   });
   return nuxtError;
 };
+function injectHead(nuxtApp) {
+  const nuxt = nuxtApp || tryUseNuxtApp();
+  return nuxt?.ssrContext?.head || nuxt?.runWithContext(() => {
+    if (hasInjectionContext()) {
+      return inject(headSymbol);
+    }
+  });
+}
+function useHead(input, options = {}) {
+  const head = injectHead(options.nuxt);
+  if (head) {
+    return useHead$1(input, { head, ...options });
+  }
+}
+function useSeoMeta(input, options = {}) {
+  const head = injectHead(options.nuxt);
+  if (head) {
+    return useSeoMeta$1(input, { head, ...options });
+  }
+}
 const _wrapInTransition = (props, children) => {
   return { default: () => children.default?.() };
 };
@@ -635,17 +656,17 @@ const _routes = [
   {
     name: "cart",
     path: "/cart",
-    component: () => import("./_nuxt/cart-r3Foe3mL.js")
+    component: () => import("./_nuxt/cart-DISDss2U.js")
   },
   {
     name: "index",
     path: "/",
-    component: () => import("./_nuxt/index-6h1WnNaO.js")
+    component: () => import("./_nuxt/index-Wo0MQfVu.js")
   },
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import("./_nuxt/checkout-DU_KkMCc.js")
+    component: () => import("./_nuxt/checkout-C7thVIf2.js")
   },
   {
     name: "admin-team",
@@ -657,18 +678,18 @@ const _routes = [
     name: "admin",
     path: "/admin",
     meta: { ...__nuxt_page_meta$5 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import("./_nuxt/index-DRQ0UuKr.js")
+    component: () => import("./_nuxt/index-DQzXivkg.js")
   },
   {
     name: "admin-login",
     path: "/admin/login",
-    component: () => import("./_nuxt/login-CNKQf068.js")
+    component: () => import("./_nuxt/login-YUErJ0DX.js")
   },
   {
     name: "admin-stock",
     path: "/admin/stock",
     meta: { ...__nuxt_page_meta$4 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import("./_nuxt/stock-CoquhsuU.js")
+    component: () => import("./_nuxt/stock-0i3e1DlW.js")
   },
   {
     name: "admin-orders",
@@ -679,18 +700,18 @@ const _routes = [
   {
     name: "account",
     path: "/account",
-    component: () => import("./_nuxt/index-D1_fPtsG.js")
+    component: () => import("./_nuxt/index-6TjEugwR.js")
   },
   {
     name: "admin-scanner",
     path: "/admin/scanner",
     meta: { ...__nuxt_page_meta$2 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import("./_nuxt/scanner-XtzZe7u6.js")
+    component: () => import("./_nuxt/scanner-Cwox44-y.js")
   },
   {
     name: "products-id",
     path: "/products/:id()",
-    component: () => import("./_nuxt/_id_-ConwJ9Nx.js")
+    component: () => import("./_nuxt/_id_-t5PTk3Ae.js")
   },
   {
     name: "admin-invoices",
@@ -701,7 +722,7 @@ const _routes = [
   {
     name: "products",
     path: "/products",
-    component: () => import("./_nuxt/index-D_gjwPZf.js")
+    component: () => import("./_nuxt/index-CIUsp--c.js")
   },
   {
     name: "admin-suppliers",
@@ -712,12 +733,12 @@ const _routes = [
   {
     name: "categories-slug",
     path: "/categories/:slug()",
-    component: () => import("./_nuxt/_slug_-BjrYEH62.js")
+    component: () => import("./_nuxt/_slug_-BMndqKXU.js")
   },
   {
     name: "order-confirmation",
     path: "/order-confirmation",
-    component: () => import("./_nuxt/order-confirmation-BZznDxvu.js")
+    component: () => import("./_nuxt/order-confirmation-CqM6MMqG.js")
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => {
@@ -751,8 +772,8 @@ const globalMiddleware = [
   manifest_45route_45rule
 ];
 const namedMiddleware = {
-  auth: () => import("./_nuxt/auth-DwJYVMx3.js"),
-  permission: () => import("./_nuxt/permission-UCqa7jGG.js")
+  auth: () => import("./_nuxt/auth-4LZC3wLH.js"),
+  permission: () => import("./_nuxt/permission-C3gf7KUB.js")
 };
 Object.assign(/* @__PURE__ */ Object.create(null), {});
 const pageIslandRoutes = Object.assign(/* @__PURE__ */ Object.create(null), {});
@@ -1385,6 +1406,19 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
 const components_plugin_z4hgvsiddfKkfXTP6M8M4zG5Cb7sGnDhcryKVM45Di4 = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:global-components"
 });
+const pwa_icons_plugin_C24GcIKjcI2zsa8A86om0L2LZjx1chWtzYxD11T7Txg = /* @__PURE__ */ defineNuxtPlugin(() => {
+  return {
+    provide: {
+      pwaIcons: {
+        transparent: {},
+        maskable: {},
+        favicon: {},
+        apple: {},
+        appleSplashScreen: {}
+      }
+    }
+  };
+});
 let routes;
 const prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk = /* @__PURE__ */ defineNuxtPlugin(async () => {
   let __temp, __restore;
@@ -1427,11 +1461,32 @@ const plugins = [
   revive_payload_server_MVtmlZaQpj6ApFmshWfUWl5PehCebzaBf2NuRMiIbms,
   plugin,
   components_plugin_z4hgvsiddfKkfXTP6M8M4zG5Cb7sGnDhcryKVM45Di4,
+  pwa_icons_plugin_C24GcIKjcI2zsa8A86om0L2LZjx1chWtzYxD11T7Txg,
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
+const pwaInfo = { "webManifest": { "href": "/NoxShop/manifest.webmanifest" } };
+const __nuxt_component_0 = defineComponent({
+  async setup() {
+    if (pwaInfo) {
+      const meta = ref({ link: [] });
+      useHead(meta);
+      const { webManifest } = pwaInfo;
+      if (webManifest) {
+        const { href } = webManifest;
+        {
+          meta.value.link.push({
+            rel: "manifest",
+            href
+          });
+        }
+      }
+    }
+    return () => null;
+  }
+});
 const layouts = {
-  admin: defineAsyncComponent(() => import("./_nuxt/admin-BE-O2Y-B.js").then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import("./_nuxt/default-DcKgNCou.js").then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import("./_nuxt/admin-B6T4PPRl.js").then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import("./_nuxt/default-B--IiIkm.js").then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
@@ -1455,7 +1510,7 @@ const nuxtLayoutProps = {
     default: null
   }
 };
-const __nuxt_component_0 = defineComponent({
+const __nuxt_component_1 = defineComponent({
   name: "NuxtLayout",
   inheritAttrs: false,
   props: nuxtLayoutProps,
@@ -1619,7 +1674,7 @@ const defineRouteProvider = (name = "RouteProvider") => defineComponent({
   }
 });
 const RouteProvider = defineRouteProvider();
-const __nuxt_component_1 = defineComponent({
+const __nuxt_component_2 = defineComponent({
   name: "NuxtPage",
   inheritAttrs: false,
   props: {
@@ -1843,17 +1898,19 @@ _sfc_main$3.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/cart/FloatingCart.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-95df09a5"]]);
+const __nuxt_component_3 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-95df09a5"]]);
 const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "app",
   __ssrInlineRender: true,
   setup(__props) {
     const route = useRoute();
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_NuxtLayout = __nuxt_component_0;
-      const _component_NuxtPage = __nuxt_component_1;
-      const _component_CartFloatingCart = __nuxt_component_2;
+      const _component_NuxtPwaManifest = __nuxt_component_0;
+      const _component_NuxtLayout = __nuxt_component_1;
+      const _component_NuxtPage = __nuxt_component_2;
+      const _component_CartFloatingCart = __nuxt_component_3;
       _push(`<!--[-->`);
+      _push(ssrRenderComponent(_component_NuxtPwaManifest, null, null, _parent));
       _push(ssrRenderComponent(_component_NuxtLayout, null, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
@@ -1895,8 +1952,8 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-BXyUoYZ7.js"));
-    const _Error = defineAsyncComponent(() => import("./_nuxt/error-500-7XN2P3WZ.js"));
+    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-BL3MP6L_.js"));
+    const _Error = defineAsyncComponent(() => import("./_nuxt/error-500-DaArHrkv.js"));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ status: unref(status), statusText: unref(statusText), statusCode: unref(status), statusMessage: unref(statusText), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -1990,14 +2047,15 @@ const entry_default = ((ssrContext) => entry(ssrContext));
 export {
   _export_sfc as _,
   __nuxt_component_0$1 as a,
-  useCatalogStore as b,
-  useCurrency as c,
-  useRouter as d,
+  useCartStore as b,
+  useCatalogStore as c,
+  useCurrency as d,
   entry_default as default,
-  useRoute as e,
-  defineNuxtRouteMiddleware as f,
+  useRouter as e,
+  useRoute as f,
+  useSeoMeta as g,
+  defineNuxtRouteMiddleware as h,
   navigateTo as n,
-  tryUseNuxtApp as t,
-  useCartStore as u
+  useHead as u
 };
 //# sourceMappingURL=server.mjs.map

@@ -18,13 +18,15 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/island-link-navigation.client.js")> &
   InjectionType<typeof import("../../node_modules/@pinia/nuxt/dist/runtime/plugin.vue3.js")> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client.js")> &
-  InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/prerender.server.js")>
+  InjectionType<typeof import("../pwa-icons-plugin")> &
+  InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/prerender.server.js")> &
+  InjectionType<typeof import("../../node_modules/@vite-pwa/nuxt/dist/runtime/plugins/pwa.client.js")>
 
 declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }
 
   interface NuxtAppLiterals {
-    pluginName: 'nuxt:revive-payload:client' | 'nuxt:head' | 'nuxt:router' | 'nuxt:payload' | 'nuxt:revive-payload:server' | 'nuxt:chunk-reload' | 'nuxt:island-link-navigation' | 'pinia' | 'nuxt:global-components' | 'nuxt:prefetch'
+    pluginName: 'nuxt:revive-payload:client' | 'nuxt:head' | 'nuxt:router' | 'nuxt:payload' | 'nuxt:revive-payload:server' | 'nuxt:chunk-reload' | 'nuxt:island-link-navigation' | 'pinia' | 'nuxt:global-components' | 'nuxt:prefetch' | 'vite-pwa:nuxt:pwa-icons-plugin' | 'vite-pwa:nuxt:client:plugin'
   }
 }
 

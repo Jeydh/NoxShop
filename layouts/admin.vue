@@ -1,19 +1,10 @@
 <template>
   <div class="min-h-screen bg-slate-100 text-slate-900">
-    <header
-      class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl"
-    >
-      <div
-        class="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-3 lg:px-6"
-      >
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-3 lg:px-6">
         <!-- Logo -->
         <NuxtLink to="/admin" class="flex items-center gap-3">
-          <div
-            class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-cyan-400 font-black text-white"
-          >
-            N
-          </div>
-
+            <img :src="withBase('/brand/noxshop_logo.png', $config.app.baseURL)" alt="logo NoxShop" class="h-14 w-auto object-contain"/>
           <div>
             <strong>NOX</strong>
             <span class="ml-2 text-xs text-slate-400">
@@ -24,17 +15,11 @@
 
         <!-- Actions desktop -->
         <div class="flex items-center gap-3">
-          <NuxtLink
-            to="/"
-            class="hidden rounded-xl px-3 py-2 text-sm text-slate-500 hover:bg-slate-100 sm:block"
-          >
+          <NuxtLink to="/" class="hidden rounded-xl px-3 py-2 text-sm text-slate-500 hover:bg-slate-100 sm:block">
             Voir le site
           </NuxtLink>
 
-          <div
-            v-if="auth.user"
-            class="hidden rounded-xl bg-slate-100 px-3 py-2 text-xs sm:block"
-          >
+          <div v-if="auth.user" class="hidden rounded-xl bg-slate-100 px-3 py-2 text-xs sm:block">
             <strong>
               {{ auth.user.name }}
             </strong>
@@ -44,21 +29,15 @@
             </span>
           </div>
 
-          <button
-            class="hidden rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white sm:block"
-            @click="logout"
-          >
+          <button class="hidden rounded-xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white sm:block"
+            @click="logout">
             Déconnexion
           </button>
 
           <!-- Bouton mobile -->
-          <button
-            type="button"
+          <button type="button"
             class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-lg text-slate-700 transition hover:bg-slate-200 active:scale-95 lg:hidden"
-            :aria-expanded="mobileMenuOpen"
-            aria-label="Ouvrir le menu de gestion"
-            @click="mobileMenuOpen = true"
-          >
+            :aria-expanded="mobileMenuOpen" aria-label="Ouvrir le menu de gestion" @click="mobileMenuOpen = true">
             ☰
           </button>
         </div>
@@ -66,28 +45,19 @@
     </header>
 
     <!-- Menu mobile admin -->
-    <MobileMenu
-      :open="mobileMenuOpen"
-      :items="mobileItems"
-      title="Back-office"
-      eyebrow="NOX"
-      @close="mobileMenuOpen = false"
-    >
+    <MobileMenu :open="mobileMenuOpen" :items="mobileItems" title="Back-office" eyebrow="NOX"
+      @close="mobileMenuOpen = false">
       <template #footer>
         <div class="space-y-2">
-          <NuxtLink
-            to="/"
+          <NuxtLink to="/"
             class="flex items-center justify-center rounded-xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-200"
-            @click="mobileMenuOpen = false"
-          >
+            @click="mobileMenuOpen = false">
             ← Voir le site
           </NuxtLink>
 
-          <button
-            type="button"
+          <button type="button"
             class="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            @click="logout"
-          >
+            @click="logout">
             Déconnexion
           </button>
         </div>
@@ -97,17 +67,11 @@
     <!-- Contenu admin -->
     <div class="mx-auto flex max-w-[1500px]">
       <!-- Sidebar desktop -->
-      <aside
-        class="hidden w-60 shrink-0 border-r border-slate-200 bg-white p-4 lg:block"
-      >
+      <aside class="hidden w-60 shrink-0 border-r border-slate-200 bg-white p-4 lg:block">
         <nav class="space-y-1">
-          <NuxtLink
-            v-for="item in visibleItems"
-            :key="item.to"
-            :to="item.to"
+          <NuxtLink v-for="item in visibleItems" :key="item.to" :to="item.to"
             class="block rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
-            active-class="bg-violet-50 !text-violet-700"
-          >
+            active-class="bg-violet-50 !text-violet-700">
             {{ item.label }}
           </NuxtLink>
         </nav>
@@ -123,6 +87,7 @@
 
 <script setup lang="ts">
 import { roleLabels } from '~/data/users'
+import { withBase } from 'ufo'
 
 const auth = useAuthStore()
 

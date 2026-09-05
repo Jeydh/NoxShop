@@ -37,3 +37,5 @@ export { useAuthStore } from '../stores/useAuth';
 export { useCartStore } from '../stores/useCart';
 export { useCatalogStore } from '../stores/useCatalog';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
+export { usePWA, useTransparentPwaIcon, useMaskablePwaIcon, useFaviconPwaIcon, useApplePwaIcon, useAppleSplashScreenPwaIcon } from '../node_modules/@vite-pwa/nuxt/dist/runtime/composables/index';
+export { useImage } from '../node_modules/@nuxt/image/dist/runtime/composables';

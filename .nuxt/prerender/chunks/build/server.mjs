@@ -1,6 +1,6 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, hasInjectionContext, getCurrentInstance, inject, computed, defineComponent, shallowRef, h, resolveComponent, getCurrentScope, unref, createElementBlock, provide, cloneVNode, defineAsyncComponent, shallowReactive, useSSRContext, createApp, isVNode, createCommentVNode, mergeProps, withCtx, createTextVNode, createVNode, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, reactive, effectScope, Suspense, nextTick, Fragment, toRef, isReadonly, toRaw, isRef, isShallow, isReactive } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue/index.mjs';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, computed, hasInjectionContext, getCurrentInstance, inject, defineComponent, shallowRef, h, resolveComponent, getCurrentScope, unref, createElementBlock, provide, cloneVNode, defineAsyncComponent, shallowReactive, useSSRContext, createApp, isVNode, createCommentVNode, mergeProps, withCtx, createTextVNode, createVNode, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, reactive, effectScope, Suspense, nextTick, Fragment, toRef, isReadonly, toRaw, isRef, isShallow, isReactive } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue/index.mjs';
 import { $fetch } from 'file:///home/jeydh/projects/nox-shop/node_modules/ofetch/dist/node.mjs';
-import { b as baseURL } from '../_/renderer.mjs';
+import { e as baseURL } from '../nitro/nitro.mjs';
 import { createHooks } from 'file:///home/jeydh/projects/nox-shop/node_modules/hookable/dist/index.mjs';
 import { getContext, executeAsync } from 'file:///home/jeydh/projects/nox-shop/node_modules/unctx/dist/index.mjs';
 import { sanitizeStatusCode, createError as createError$1, appendHeader } from 'file:///home/jeydh/projects/nox-shop/node_modules/h3/dist/index.mjs';
@@ -9,8 +9,7 @@ import { defu } from 'file:///home/jeydh/projects/nox-shop/node_modules/defu/dis
 import { useRoute as useRoute$1, RouterView, START_LOCATION, createMemoryHistory, createRouter } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue-router/vue-router.node.mjs';
 import { hasProtocol, isScriptProtocol, joinURL, parseQuery, withQuery, parseURL, encodePath, decodePath, withTrailingSlash, withoutTrailingSlash } from 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import { ssrRenderAttrs, ssrInterpolate, ssrRenderList, ssrRenderAttr, ssrIncludeBooleanAttr, ssrRenderComponent, ssrRenderClass, ssrRenderSuspense, ssrRenderVNode } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue/server-renderer/index.mjs';
-import 'file:///home/jeydh/projects/nox-shop/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import '../nitro/nitro.mjs';
+import { u as useSeoMeta$1, a as useHead$1, h as headSymbol } from '../_/renderer.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/destr/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/node-mock-http/dist/index.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/unstorage/dist/index.mjs';
@@ -27,6 +26,8 @@ import 'file:///home/jeydh/projects/nox-shop/node_modules/radix3/dist/index.mjs'
 import 'node:fs';
 import 'node:url';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/pathe/dist/index.mjs';
+import 'file:///home/jeydh/projects/nox-shop/node_modules/ipx/dist/index.mjs';
+import 'file:///home/jeydh/projects/nox-shop/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/unhead/dist/server.mjs';
 import 'node:async_hooks';
 import 'file:///home/jeydh/projects/nox-shop/node_modules/devalue/index.js';
@@ -426,6 +427,26 @@ const createError = (error) => {
   });
   return nuxtError;
 };
+function injectHead(nuxtApp) {
+  const nuxt = nuxtApp || tryUseNuxtApp();
+  return nuxt?.ssrContext?.head || nuxt?.runWithContext(() => {
+    if (hasInjectionContext()) {
+      return inject(headSymbol);
+    }
+  });
+}
+function useHead(input, options = {}) {
+  const head = injectHead(options.nuxt);
+  if (head) {
+    return useHead$1(input, { head, ...options });
+  }
+}
+function useSeoMeta(input, options = {}) {
+  const head = injectHead(options.nuxt);
+  if (head) {
+    return useSeoMeta$1(input, { head, ...options });
+  }
+}
 const _wrapInTransition = (props, children) => {
   return { default: () => children.default?.() };
 };
@@ -657,17 +678,17 @@ const _routes = [
   {
     name: "cart",
     path: "/cart",
-    component: () => import('./cart-r3Foe3mL.mjs')
+    component: () => import('./cart-DISDss2U.mjs')
   },
   {
     name: "index",
     path: "/",
-    component: () => import('./index-6h1WnNaO.mjs')
+    component: () => import('./index-Wo0MQfVu.mjs')
   },
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import('./checkout-DU_KkMCc.mjs')
+    component: () => import('./checkout-C7thVIf2.mjs')
   },
   {
     name: "admin-team",
@@ -679,18 +700,18 @@ const _routes = [
     name: "admin",
     path: "/admin",
     meta: { ...__nuxt_page_meta$5 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./index-DRQ0UuKr.mjs')
+    component: () => import('./index-DQzXivkg.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
-    component: () => import('./login-CNKQf068.mjs')
+    component: () => import('./login-YUErJ0DX.mjs')
   },
   {
     name: "admin-stock",
     path: "/admin/stock",
     meta: { ...__nuxt_page_meta$4 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./stock-CoquhsuU.mjs')
+    component: () => import('./stock-0i3e1DlW.mjs')
   },
   {
     name: "admin-orders",
@@ -701,18 +722,18 @@ const _routes = [
   {
     name: "account",
     path: "/account",
-    component: () => import('./index-D1_fPtsG.mjs')
+    component: () => import('./index-6TjEugwR.mjs')
   },
   {
     name: "admin-scanner",
     path: "/admin/scanner",
     meta: { ...__nuxt_page_meta$2 || {}, ...{ "middleware": ["auth"] } },
-    component: () => import('./scanner-XtzZe7u6.mjs')
+    component: () => import('./scanner-Cwox44-y.mjs')
   },
   {
     name: "products-id",
     path: "/products/:id()",
-    component: () => import('./_id_-ConwJ9Nx.mjs')
+    component: () => import('./_id_-t5PTk3Ae.mjs')
   },
   {
     name: "admin-invoices",
@@ -723,7 +744,7 @@ const _routes = [
   {
     name: "products",
     path: "/products",
-    component: () => import('./index-D_gjwPZf.mjs')
+    component: () => import('./index-CIUsp--c.mjs')
   },
   {
     name: "admin-suppliers",
@@ -734,12 +755,12 @@ const _routes = [
   {
     name: "categories-slug",
     path: "/categories/:slug()",
-    component: () => import('./_slug_-BjrYEH62.mjs')
+    component: () => import('./_slug_-BMndqKXU.mjs')
   },
   {
     name: "order-confirmation",
     path: "/order-confirmation",
-    component: () => import('./order-confirmation-BZznDxvu.mjs')
+    component: () => import('./order-confirmation-CqM6MMqG.mjs')
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => {
@@ -773,8 +794,8 @@ const globalMiddleware = [
   manifest_45route_45rule
 ];
 const namedMiddleware = {
-  auth: () => import('./auth-DwJYVMx3.mjs'),
-  permission: () => import('./permission-UCqa7jGG.mjs')
+  auth: () => import('./auth-4LZC3wLH.mjs'),
+  permission: () => import('./permission-C3gf7KUB.mjs')
 };
 Object.assign(/* @__PURE__ */ Object.create(null), {});
 const pageIslandRoutes = Object.assign(/* @__PURE__ */ Object.create(null), {});
@@ -1404,6 +1425,19 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
 const components_plugin_z4hgvsiddfKkfXTP6M8M4zG5Cb7sGnDhcryKVM45Di4 = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:global-components"
 });
+const pwa_icons_plugin_C24GcIKjcI2zsa8A86om0L2LZjx1chWtzYxD11T7Txg = /* @__PURE__ */ defineNuxtPlugin(() => {
+  return {
+    provide: {
+      pwaIcons: {
+        transparent: {},
+        maskable: {},
+        favicon: {},
+        apple: {},
+        appleSplashScreen: {}
+      }
+    }
+  };
+});
 let routes;
 const prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk = /* @__PURE__ */ defineNuxtPlugin(async () => {
   let __temp, __restore;
@@ -1443,11 +1477,32 @@ const plugins = [
   revive_payload_server_MVtmlZaQpj6ApFmshWfUWl5PehCebzaBf2NuRMiIbms,
   plugin,
   components_plugin_z4hgvsiddfKkfXTP6M8M4zG5Cb7sGnDhcryKVM45Di4,
+  pwa_icons_plugin_C24GcIKjcI2zsa8A86om0L2LZjx1chWtzYxD11T7Txg,
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
+const pwaInfo = { "webManifest": { "href": "/NoxShop/manifest.webmanifest" } };
+const __nuxt_component_0 = defineComponent({
+  async setup() {
+    if (pwaInfo) {
+      const meta = ref({ link: [] });
+      useHead(meta);
+      const { webManifest } = pwaInfo;
+      if (webManifest) {
+        const { href } = webManifest;
+        {
+          meta.value.link.push({
+            rel: "manifest",
+            href
+          });
+        }
+      }
+    }
+    return () => null;
+  }
+});
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-BE-O2Y-B.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-DcKgNCou.mjs').then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import('./admin-B6T4PPRl.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-B--IiIkm.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
@@ -1471,7 +1526,7 @@ const nuxtLayoutProps = {
     default: null
   }
 };
-const __nuxt_component_0 = defineComponent({
+const __nuxt_component_1 = defineComponent({
   name: "NuxtLayout",
   inheritAttrs: false,
   props: nuxtLayoutProps,
@@ -1635,7 +1690,7 @@ const defineRouteProvider = (name = "RouteProvider") => defineComponent({
   }
 });
 const RouteProvider = defineRouteProvider();
-const __nuxt_component_1 = defineComponent({
+const __nuxt_component_2 = defineComponent({
   name: "NuxtPage",
   inheritAttrs: false,
   props: {
@@ -1859,17 +1914,19 @@ _sfc_main$3.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/cart/FloatingCart.vue");
   return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
 };
-const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-95df09a5"]]);
+const __nuxt_component_3 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-95df09a5"]]);
 const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "app",
   __ssrInlineRender: true,
   setup(__props) {
     const route = useRoute();
     return (_ctx, _push, _parent, _attrs) => {
-      const _component_NuxtLayout = __nuxt_component_0;
-      const _component_NuxtPage = __nuxt_component_1;
-      const _component_CartFloatingCart = __nuxt_component_2;
+      const _component_NuxtPwaManifest = __nuxt_component_0;
+      const _component_NuxtLayout = __nuxt_component_1;
+      const _component_NuxtPage = __nuxt_component_2;
+      const _component_CartFloatingCart = __nuxt_component_3;
       _push(`<!--[-->`);
+      _push(ssrRenderComponent(_component_NuxtPwaManifest, null, null, _parent));
       _push(ssrRenderComponent(_component_NuxtLayout, null, {
         default: withCtx((_, _push2, _parent2, _scopeId) => {
           if (_push2) {
@@ -1911,8 +1968,8 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-BXyUoYZ7.mjs'));
-    const _Error = defineAsyncComponent(() => import('./error-500-7XN2P3WZ.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-BL3MP6L_.mjs'));
+    const _Error = defineAsyncComponent(() => import('./error-500-DaArHrkv.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ status: unref(status), statusText: unref(statusText), statusCode: unref(status), statusMessage: unref(statusText), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -2004,5 +2061,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { _export_sfc as _, __nuxt_component_0$1 as a, useCatalogStore as b, useCurrency as c, useRouter as d, entry_default as default, useRoute as e, defineNuxtRouteMiddleware as f, navigateTo as n, tryUseNuxtApp as t, useCartStore as u };
+export { _export_sfc as _, __nuxt_component_0$1 as a, useCartStore as b, useCatalogStore as c, useCurrency as d, entry_default as default, useRouter as e, useRoute as f, useSeoMeta as g, defineNuxtRouteMiddleware as h, navigateTo as n, useHead as u };
 //# sourceMappingURL=server.mjs.map

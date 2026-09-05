@@ -1,8 +1,8 @@
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { getResponseStatusText, getResponseStatus, getQuery, createError, appendResponseHeader } from 'file:///home/jeydh/projects/nox-shop/node_modules/h3/dist/index.mjs';
-import { joinRelativeURL, encodePath, joinURL } from 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
+import { encodePath, joinURL } from 'file:///home/jeydh/projects/nox-shop/node_modules/ufo/dist/index.mjs';
 import { renderToString } from 'file:///home/jeydh/projects/nox-shop/node_modules/vue/server-renderer/index.mjs';
-import { u as useRuntimeConfig, a as useStorage, d as defineRenderHandler, g as getRouteRules, b as useNitroApp } from '../nitro/nitro.mjs';
+import { b as buildAssetsURL, p as publicAssetsURL, u as useRuntimeConfig, a as useStorage, d as defineRenderHandler, g as getRouteRules, c as useNitroApp } from '../nitro/nitro.mjs';
 import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///home/jeydh/projects/nox-shop/node_modules/unhead/dist/server.mjs';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { stringify, uneval } from 'file:///home/jeydh/projects/nox-shop/node_modules/devalue/index.js';
@@ -108,7 +108,7 @@ function createHead(options = {}) {
 
 const NUXT_PAYLOAD_EXTRACTION = true;
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"icon","type":"image/png","href":"/NoxShop/brand/icons/noxshop_icon_x48.png"},{"rel":"apple-touch-icon","href":"/NoxShop/brand/icons/noxshop_icon_x192.png"}],"style":[],"script":[],"noscript":[]};
 
 const appRootTag = "div";
 
@@ -119,24 +119,6 @@ const appTeleportTag = "div";
 const appTeleportAttrs = {"id":"teleports"};
 
 const appId = "nuxt-app";
-
-function baseURL() {
-	
-	return useRuntimeConfig().app.baseURL;
-}
-function buildAssetsDir() {
-	
-	return useRuntimeConfig().app.buildAssetsDir;
-}
-function buildAssetsURL(...path) {
-	return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
-}
-function publicAssetsURL(...path) {
-	
-	const app = useRuntimeConfig().app;
-	const publicBase = app.cdnURL || app.baseURL;
-	return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
-}
 
 // @ts-expect-error private property consumed by vite-generated url helpers
 globalThis.__buildAssetsURL = buildAssetsURL;
@@ -588,5 +570,5 @@ const renderer = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   default: handler
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { useSeoMeta as a, baseURL as b, headSymbol as h, renderer as r, useHead as u };
+export { useHead as a, headSymbol as h, renderer as r, useSeoMeta as u };
 //# sourceMappingURL=renderer.mjs.map
